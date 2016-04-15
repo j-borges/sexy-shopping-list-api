@@ -1,10 +1,12 @@
 [
   {
     "id": 1,
-    "name": "Meat"
+    "categoryId": 1,
+    "name": "Beef"
   },
-
   {
-    "name": "Grains"
+    "id": 2,
+    "categoryId": 2,
+    "name": "Hot Sauce"
   }
 ]
