@@ -53,3 +53,5 @@ export const remove = (collection, id) => {
     }
 
     return wasFound
+
+}
