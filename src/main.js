@@ -36,9 +36,16 @@ app
             res.status(404).send('Category not found')
         }
     })
+
     .delete('/categories/:id', (req, res) => {
-        storage.remove('categories', req.params.id)
-        res.send(`Successfully removed categories id: ${req.params.id}`)
+        const didRemove = storage.remove('categories', req.params.id)
+
+
+        const  message = didRemove
+            ?`Successfully removed categories id: ${req.params.id}`
+            : `Did not find the item id: ${req.params.id}`
+
+        res.status(404).send(message)
     })
 
     .get('/items', (req, res) => {

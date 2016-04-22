@@ -37,16 +37,19 @@ const save = (collection, arr) => {
     fs.writeFileSync(`storage/${collection}.json`, JSON.stringify(arr, null, 2))
 }
 /**
- * Remove a single object from a collection
+ * Remove a single object from a collection.
  * @param {string} collection The string name of the collection.
- * @param {string|number} id  The id of the object to remove.
+ * @param {string|number} id The id of the object to remove.
+ * @returns {boolean} True if an item was removed, false if it was not found.
  */
-
 export const remove = (collection, id) => {
-    const arr  = list(collection)
+    const arr = list(collection)
     const index = arr.findIndex((object) => object.id === id)
+    const wasFound = index !== -1
 
-    arr.splice(index)
+    if (wasFound) {
+        arr.splice(index)
+        save(collection, arr)
+    }
 
-    save(collection, arr);
-}
+    return wasFound
