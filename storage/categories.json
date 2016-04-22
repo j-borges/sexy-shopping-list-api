@@ -8,5 +8,10 @@
     "id": 2,
     "categoryId": 2,
     "name": "Hot Sauce"
+  },
+  {
+    "id": 3,
+    "categoryId": 3,
+    "name": "Coffee"
   }
 ]

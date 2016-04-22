@@ -12,18 +12,41 @@ export const list = (collection) => {
 
     return JSON.parse(string)
 }
-export const save = (collection, object) => {
-    // read json file
-    //parse string into object (array)
-    const arr = list(collection) // [{},....{}]
+/**
+ * Add new object into a collection
+ * @param {string} collection  the string name of the collection.
+ * @param {object} object  The new object to add to the collection.
+ * @returns {*}
+ */
+export const add = (collection, object) => {
+    const arr = list(collection)
 
-    //push string into object (array)
     arr.push(object)
 
-    //stringify array
-    //write file
 
-    fs.writeFileSync(`storage/${collection}.json`, JSON.stringify(arr, null, 2))
 
+    save(collection, arr)
     return object
+}
+/**
+ * Save an entire collection. This will overwrite the exixting collection.
+ * @param {string} collection  the string name of the collection.
+ * @param {Array} arr  The new value of the collection.
+ */
+const save = (collection, arr) => {
+    fs.writeFileSync(`storage/${collection}.json`, JSON.stringify(arr, null, 2))
+}
+/**
+ * Remove a single object from a collection
+ * @param {string} collection The string name of the collection.
+ * @param {string|number} id  The id of the object to remove.
+ */
+
+export const remove = (collection, id) => {
+    const arr  = list(collection)
+    const index = arr.findIndex((object) => object.id === id)
+
+    arr.splice(index)
+
+    save(collection, arr);
 }
