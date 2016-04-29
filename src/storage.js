@@ -8,9 +8,13 @@ import fs from 'fs'
  * @param {string} collection The string name of the collection.
  */
 export const list = (collection) => {
-    const string = fs.readFileSync(`storage/${collection}.json`, 'utf8')
+    try {
+        const string = fs.readFileSync(`storage/${collection}.json`, 'utf8')
 
-    return JSON.parse(string)
+        return JSON.parse(string)
+    }catch (e) {
+        return null
+    }
 }
 /**
  * Add new object into a collection
@@ -44,7 +48,7 @@ const save = (collection, arr) => {
  */
 export const remove = (collection, id) => {
     const arr = list(collection)
-    const index = arr.findIndex((object) => object.id === id)
+    const index = arr.findIndex((object) => object.id == id)
     const wasFound = index !== -1
 
     if (wasFound) {
@@ -54,4 +58,13 @@ export const remove = (collection, id) => {
 
     return wasFound
 
+}
+/**
+ * @param{string} collection The string name of the collection.
+ * @param {string|number} id The id of the object to remove.
+ * @return {object|undefined} Found object or undefined if not found
+ */
+export const find = (collection, id) => {
+    const arr = list(collection)
+    return arr.find((object) => object.id == id)
 }
