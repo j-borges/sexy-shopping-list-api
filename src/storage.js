@@ -9,17 +9,18 @@ import fs from 'fs'
  */
 export const list = (collection) => {
     try {
-        const string = fs.readFileSync(`storage/${collection}.json`, 'utf8')
+        const result = fs.readFileSync(`storage/${collection}.json`, 'utf8')
 
-        return JSON.parse(string)
-    }catch (e) {
+        return JSON.parse(result)
+    } catch (e) {
         return null
     }
 }
+
 /**
- * Add new object into a collection
- * @param {string} collection  the string name of the collection.
- * @param {object} object  The new object to add to the collection.
+ * Add a new object into a collection.
+ * @param {string} collection The string name of the collection.
+ * @param {object} object The new object to add to the collection.
  * @returns {*}
  */
 export const add = (collection, object) => {
@@ -27,19 +28,22 @@ export const add = (collection, object) => {
 
     arr.push(object)
 
-
-
     save(collection, arr)
+
     return object
 }
+
 /**
- * Save an entire collection. This will overwrite the exixting collection.
- * @param {string} collection  the string name of the collection.
- * @param {Array} arr  The new value of the collection.
+ * Save an entire collection.  This will overwrite the existing collection.
+ * @param {string} collection The string name of the collection.
+ * @param {Array} arr The new value of the entire collection.
  */
 const save = (collection, arr) => {
+    // stringify array
+    // write file
     fs.writeFileSync(`storage/${collection}.json`, JSON.stringify(arr, null, 2))
 }
+
 /**
  * Remove a single object from a collection.
  * @param {string} collection The string name of the collection.
@@ -57,12 +61,13 @@ export const remove = (collection, id) => {
     }
 
     return wasFound
-
 }
+
 /**
- * @param{string} collection The string name of the collection.
- * @param {string|number} id The id of the object to remove.
- * @return {object|undefined} Found object or undefined if not found
+ * Find a single object by id in a collection.
+ * @param {string} collection The string name of the collection.
+ * @param {string|number} id The id of the object to find.
+ * @returns {object|undefined} Found object or undefined if not found.
  */
 export const find = (collection, id) => {
     const arr = list(collection)
