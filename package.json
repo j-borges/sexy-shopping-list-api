@@ -12,6 +12,10 @@
 
   },
   "author": "",
+  "engines": {
+    "node": ">=6",
+    "npm": ">=3"
+  },
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.7.4",
